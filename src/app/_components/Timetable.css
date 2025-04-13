@@ -5,3 +5,12 @@
   justify-content: center;
   place-items: center;
 }
+
+.entry ol > li {
+  margin-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.entry ol > li > p {
+  margin-left: 0.5rem;
+}
