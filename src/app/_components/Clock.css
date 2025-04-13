@@ -1,0 +1,17 @@
+.clock {
+  max-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.clock h1 {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.clock p::first-letter {
+  text-transform: capitalize;
+}

@@ -1,0 +1,17 @@
+@import 'tailwindcss';
+
+.card {
+  max-height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card > div {
+  height: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 0.75rem;
+  background: #0f0f0f;
+}
