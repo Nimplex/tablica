@@ -1,3 +1,5 @@
+'use client';
+
 import './Announcements.css';
 
 export default function Announcements() {

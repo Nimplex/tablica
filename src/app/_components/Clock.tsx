@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { multiInterpolateColor } from '../_utils/interpolateColor';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
