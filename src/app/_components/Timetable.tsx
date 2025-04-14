@@ -15,9 +15,15 @@ export interface TimetableData {
   entries: TimetableEntry[];
 }
 
-export default function Timetable({ data }: { data?: TimetableData }) {
+export default function Timetable({
+  data,
+  background,
+}: {
+  data?: TimetableData;
+  background: string;
+}) {
   return data ? (
-    <div className="timetable">
+    <div className="timetable" style={{ background }}>
       <h1>{data.title}</h1>
       <span className="divider"></span>
       <div className="list">
@@ -46,7 +52,7 @@ export default function Timetable({ data }: { data?: TimetableData }) {
       </div>
     </div>
   ) : (
-    <div className="loading">
+    <div className="loading" style={{ background }}>
       <PulseLoader size={'20px'} color={'#fafafa'} />
     </div>
   );

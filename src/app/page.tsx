@@ -14,13 +14,13 @@ export default function Home() {
   return (
     <div className="standard-grid">
       <Card>
-        <Timetable data={firstCard} />
+        <Timetable data={firstCard} background="#8D94BAea" />
       </Card>
       <Card>
-        <Timetable data={secondCard} />
+        <Timetable data={secondCard} background="#9A7AA0ea" />
       </Card>
       <Card>
-        <Timetable data={thirdCard} />
+        <Timetable data={thirdCard} background="#87677Bea" />
       </Card>
       <Card>
         <Announcements />

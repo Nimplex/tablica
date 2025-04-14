@@ -6,6 +6,10 @@
   place-items: center;
 }
 
+.timetable, .loading {
+  backdrop-filter: blur(5px);
+}
+
 .entry ol > li {
   margin-left: 1.25rem;
   margin-top: 0.5rem;

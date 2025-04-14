@@ -7,6 +7,7 @@
   gap: 0.5rem;
   font-size: 1.25rem;
   font-variant-numeric: tabular-nums;
+  background: #0f0f0fee;
 }
 
 .clock h1 {
