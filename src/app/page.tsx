@@ -7,20 +7,20 @@ import Announcements from './_components/Announcements';
 import Clock from './_components/Clock';
 
 export default function Home() {
-  const [firstCard, setFirstCards] = useState<TimetableData | null>();
-  const [secondCard, setSecondCards] = useState<TimetableData | null>();
-  const [thirdCard, setThirdCards] = useState<TimetableData | null>();
+  const [firstCard, setFirstCards] = useState<TimetableData | null>(null);
+  const [secondCard, setSecondCards] = useState<TimetableData | null>(null);
+  const [thirdCard, setThirdCards] = useState<TimetableData | null>(null);
 
   return (
     <div className="standard-grid">
       <Card>
-        <Timetable data={firstCard} background="#8D94BAea" />
+        <Timetable data={firstCard} background="#8D94BAce" />
       </Card>
       <Card>
-        <Timetable data={secondCard} background="#9A7AA0ea" />
+        <Timetable data={secondCard} background="#9A7AA0ce" />
       </Card>
       <Card>
-        <Timetable data={thirdCard} background="#87677Bea" />
+        <Timetable data={thirdCard} background="#87677Bce" />
       </Card>
       <Card>
         <Announcements />
