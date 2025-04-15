@@ -27,21 +27,19 @@ export default function Timetable({
   return data ? (
     <div className="timetable" style={{ background: bgStyle }}>
       <h1>{data.title}</h1>
-      {data.entries.length == 0 && (
-        <span
-          className="divider"
-          style={{ borderTopColor: '#ffffff12' }}
-        ></span>
-      )}
+      <span className="divider" style={{ borderTopColor: '#ffffff12' }}></span>
 
       <div className="list">
         {data.entries.map((entry, i) => (
           <>
-            <span
-              className="divider"
-              style={{ borderTopColor: '#ffffff12' }}
-            ></span>
-            <div className="entry" key={i}>
+            {i !== 0 && (
+              <span
+                className="divider"
+                style={{ borderTopColor: '#ffffff12' }}
+                key={`divider-${i}`}
+              ></span>
+            )}
+            <div className="entry" key={`entry-${i}`}>
               <p>
                 <u>
                   {entry.date.toLocaleDateString('pl-PL', {
@@ -54,7 +52,10 @@ export default function Timetable({
                   )
                 </u>{' '}
                 - nb:{' '}
-                <span style={{ color: 'red' }}>{entry.absentTeacher}</span>:
+                <span style={{ color: '#ff817d', fontWeight: '600' }}>
+                  {entry.absentTeacher}
+                </span>
+                :
               </p>
               <ol>
                 {entry.changes.map((change, i) => (
