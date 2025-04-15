@@ -12,11 +12,22 @@
   backdrop-filter: blur(5px);
 }
 
-.entry ol > li {
+.timetable {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.timetable > .list {
+  overflow-y: hidden;
+  flex-grow: 1;
+}
+
+.list > .entry ol > li {
   margin-left: 1.25rem;
   margin-top: 0.5rem;
 }
 
-.entry ol > li > p {
+.list > .entry ol > li > p {
   margin-left: 0.5rem;
 }

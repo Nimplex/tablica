@@ -52,7 +52,7 @@ export default function Timetable({
                   )
                 </u>{' '}
                 - nb:{' '}
-                <span style={{ color: '#ff817d', fontWeight: '600' }}>
+                <span style={{ color: '#fc6f6a', fontWeight: '600' }}>
                   {entry.absentTeacher}
                 </span>
                 :
