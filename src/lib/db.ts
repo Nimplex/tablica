@@ -6,10 +6,11 @@ import { TextPanel } from './models/TextPanel';
 
 import Database from 'better-sqlite3';
 import { join } from 'path';
+import { User } from './models/User';
 
 const database = new Database(join(process.cwd(), 'data.db'));
 
-export function initializeDatabase() {
+export async function initializeDatabase() {
   // create all
   database.exec(`
     PRAGMA foreign_keys = ON;
@@ -48,13 +49,24 @@ export function initializeDatabase() {
       weather_city TEXT NOT NULL DEFAULT '',
       layout_json TEXT NOT NULL DEFAULT '[]'
     );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT UNIQUE NOT NULL,
+      passwordHash TEXT NOT NULL,
+      createdAt TEXT DEFAULT CURRENT_TIMESTAMP
+    );
   `);
+
+  const adminUser = new User(null, 'administrator', '');
+  await adminUser.setPassword('administrator');
 
   const objectsToInitialize = [
     new Timetable(null, 'Zastępstwa #1', '#8D94BAce'),
     new Timetable(null, 'Zastępstwa #2', '#9A7AA0ce'),
     new Timetable(null, 'Zastępstwa #3', '#87677Bce'),
     new TextPanel(null, 'Głos dyrekcji', ''),
+    adminUser,
   ];
 
   objectsToInitialize.forEach(object => object.insert());

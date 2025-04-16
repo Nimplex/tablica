@@ -15,7 +15,7 @@ export default async function App() {
   try {
     boardConfig = BoardConfig.get();
   } catch (err) {
-    initializeDatabase();
+    await initializeDatabase();
     boardConfig = BoardConfig.get();
   }
 

@@ -4,9 +4,10 @@
 }
 
 body {
-  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/PH_SWI_08.jpg/1280px-PH_SWI_08.jpg);
+  background-color: #0a0a0a;
+  /* background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/PH_SWI_08.jpg/1280px-PH_SWI_08.jpg);
   background-repeat: round;
-  backdrop-filter: blur(1px) brightness(50%);
+  backdrop-filter: blur(1px) brightness(50%); */
   color: #fafafa;
   font-size: 16px;
 }

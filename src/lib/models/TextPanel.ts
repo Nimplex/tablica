@@ -24,7 +24,6 @@ export class TextPanel {
     const row = getOne<TextPanelRow>('SELECT * FROM text_panels WHERE id = ?', [
       id,
     ]);
-
     return row ? TextPanel.fromRow(row) : undefined;
   }
 
