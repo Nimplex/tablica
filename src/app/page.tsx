@@ -9,7 +9,7 @@ import Weather from './_components/Weather';
 import { BoardConfig } from '@/lib/models/BoardConfig';
 import { initializeDatabase } from '@/lib/db';
 
-export default async function Home() {
+export default async function App() {
   let boardConfig;
 
   try {
