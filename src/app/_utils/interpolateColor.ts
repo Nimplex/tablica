@@ -2,7 +2,7 @@ type RGB = `${number}, ${number}, ${number}`;
 type RGBA = `${number}, ${number}, ${number}, ${number}`;
 type HEX = `#${string}`;
 
-type Color = RGB | RGBA | HEX;
+export type Color = RGB | RGBA | HEX;
 
 function parseColor(color: Color): number[] {
   const parse = color.split(',');

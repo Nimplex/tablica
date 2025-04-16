@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -7,8 +9,6 @@ import { PulseLoader } from 'react-spinners';
 
 import './Weather.css';
 
-const apiKey = process.env.WEATHER_KEY;
-const city = process.env.CITY;
 const lang = 'pl';
 const units = 'metric';
 
@@ -25,8 +25,15 @@ const cloud = (
   />
 );
 
-export default function Weather() {
+export default function Weather({
+  apiKey,
+  city,
+}: {
+  apiKey: string;
+  city: string;
+}) {
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [gradient, setGradient] = useState({ background: '#0f0f0f' });
   const [temp, setTemp] = useState(0);
   const [wind, setWind] = useState(0);
@@ -38,8 +45,15 @@ export default function Weather() {
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=${lang}&units=${units}`,
     );
 
+    if (!res.ok) {
+      setLoading(false);
+      return setError('Wystąpił błąd w trakcie ładowania pogody');
+    } else {
+      setLoading(true);
+      setError(null);
+    }
+
     const json = await res.json();
-    console.log(json);
 
     setDescription(json.weather[0].description.split(' ')[0]);
     setTemp(Math.round(json.main.temp));
@@ -80,19 +94,25 @@ export default function Weather() {
   }, []);
 
   return !loading ? (
-    <div className="weather" style={gradient}>
-      <svg height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {icon}
-      </svg>
-
-      <div className="right">
-        <h1 className="weather-temp">{temp}°C</h1>
-        <h2 className="weather-description">{description}</h2>
-        <h2 className="weather-wind">
-          <FontAwesomeIcon icon={faWind} /> {wind} km/h
-        </h2>
+    error ? (
+      <div className="weather-loading" style={gradient}>
+        <h1>{error}</h1>
       </div>
-    </div>
+    ) : (
+      <div className="weather" style={gradient}>
+        <svg height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {icon}
+        </svg>
+
+        <div className="right">
+          <h1 className="weather-temp">{temp}°C</h1>
+          <h2 className="weather-description">{description}</h2>
+          <h2 className="weather-wind">
+            <FontAwesomeIcon icon={faWind} /> {wind} km/h
+          </h2>
+        </div>
+      </div>
+    )
   ) : (
     <div className="weather-loading" style={gradient}>
       <PulseLoader size={'20px'} color={'#fafafa'} />

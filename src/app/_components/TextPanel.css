@@ -1,15 +1,5 @@
-.announcements-loading {
-  display: flex;
-  justify-content: center;
-  place-items: center;
-}
-
-.announcements,
-.announcements-loading {
+.text-panel {
   backdrop-filter: blur(5px);
-}
-
-.announcements {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -17,7 +7,7 @@
   background: #0f0f0fee;
 }
 
-.announcements > .list {
+.text-panel > .list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

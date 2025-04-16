@@ -1,33 +1,51 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useState } from 'react';
 import Card from './_components/Card';
-import Timetable, { TimetableData } from './_components/Timetable';
-import Announcements from './_components/Announcements';
+import TimetableComponent from './_components/Timetable';
+import TextPanel from './_components/TextPanel';
 import Clock from './_components/Clock';
 import Weather from './_components/Weather';
 
-export default function Home() {
-  const [firstCard, setFirstCards] = useState<TimetableData | null>(null);
-  const [secondCard, setSecondCards] = useState<TimetableData | null>(null);
-  const [thirdCard, setThirdCards] = useState<TimetableData | null>(null);
+import { BoardConfig } from '@/lib/models/BoardConfig';
+import { initializeDatabase } from '@/lib/db';
 
-  return (
-    <div className="standard-grid">
-      <Card>
-        <Timetable data={firstCard} background="#8D94BAce" />
-        <Weather />
-      </Card>
-      <Card>
-        <Timetable data={secondCard} background="#9A7AA0ce" />
-      </Card>
-      <Card>
-        <Timetable data={thirdCard} background="#87677Bce" />
-      </Card>
-      <Card>
-        <Announcements />
-        <Clock />
-      </Card>
-    </div>
-  );
+export default async function Home() {
+  let boardConfig;
+
+  try {
+    boardConfig = BoardConfig.get();
+  } catch (err) {
+    initializeDatabase();
+    boardConfig = BoardConfig.get();
+  }
+
+  const layout = boardConfig.layout.columns.map((column, i) => (
+    <Card key={i}>
+      {column.map((element, j) => {
+        switch (element.type) {
+          case 'clock':
+            return (
+              <Clock
+                displayDay={boardConfig.showWeekdayInClock}
+                key={`${i}-${j}`}
+              />
+            );
+          case 'text':
+            return <TextPanel id={element.id} key={`${i}-${j}`} />;
+          case 'timetable':
+            return <TimetableComponent id={element.id} key={`${i}-${j}`} />;
+          case 'weather':
+            return (
+              <Weather
+                apiKey={boardConfig.weatherApiKey}
+                city={boardConfig.weatherCity}
+                key={`${i}-${j}`}
+              />
+            );
+        }
+      })}
+    </Card>
+  ));
+
+  return <div className="standard-grid">{layout}</div>;
 }

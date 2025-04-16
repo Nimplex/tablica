@@ -1,15 +1,5 @@
-.timetable-loading {
-  display: flex;
-  justify-content: center;
-  place-items: center;
-}
-
-.timetable,
-.timetable-loading {
-  backdrop-filter: blur(5px);
-}
-
 .timetable {
+  backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
   height: 100%;

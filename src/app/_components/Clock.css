@@ -1,5 +1,5 @@
 .clock {
-  max-height: 250px;
+  max-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +16,7 @@
 }
 
 .clock p {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .clock p::first-letter {

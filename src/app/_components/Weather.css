@@ -1,9 +1,10 @@
 .weather-loading {
   overflow: auto;
+  text-align: center;
   display: flex;
   justify-content: center;
   place-items: center;
-  max-height: 250px;
+  max-height: 200px;
 }
 
 .weather,
@@ -13,11 +14,10 @@
 
 .weather {
   position: relative;
-  max-height: 250px;
+  max-height: 200px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 1.25rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -36,17 +36,17 @@
 }
 
 .weather .weather-temp {
-  font-size: 5rem;
+  font-size: 4.5rem;
 }
 
 .weather .weather-description {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 500;
   text-transform: capitalize;
 }
 
 .weather .weather-wind {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 500;
   display: flex;
   align-items: center;

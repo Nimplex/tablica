@@ -1,37 +1,34 @@
-'use client';
+import { Timetable as TimetableModel } from '@/lib/models/Timetable';
 
-import { PulseLoader } from 'react-spinners';
-
-import './Timetable.css';
 import React from 'react';
 
-export interface TimetableEntry {
-  date: Date;
-  absentTeacher: string;
-  changes: string[];
-}
+import './Timetable.css';
 
-export interface TimetableData {
-  title: string;
-  entries: TimetableEntry[];
-}
+export default function Timetable({ id }: { id: number }) {
+  const timetable = TimetableModel.getById(id);
 
-export default function Timetable({
-  data,
-  background,
-}: {
-  data: TimetableData | null;
-  background: string;
-}) {
-  const bgStyle = `linear-gradient(0deg, ${background} 0%, #0f0f0fee 90%)`;
+  if (!timetable) {
+    return (
+      <div className="timetable" style={{ background: 'rgb(15, 15, 15)' }}>
+        <h1>
+          Timetable {id} nie istnieje w bazie danych, skontaktuj się z
+          administratorem
+        </h1>
+      </div>
+    );
+  }
 
-  return data ? (
+  const { title, entries, color } = timetable;
+
+  const bgStyle = `linear-gradient(0deg, ${color} 0%, #0f0f0fee 90%)`;
+
+  return (
     <div className="timetable" style={{ background: bgStyle }}>
-      <h1>{data.title}</h1>
+      <h1>{title}</h1>
       <span className="divider" style={{ borderTopColor: '#ffffff12' }}></span>
 
       <div className="list">
-        {data.entries.map((entry, i) => (
+        {entries.map((entry, i) => (
           <React.Fragment key={`entry-wrapper-${i}`}>
             {i !== 0 && (
               <span
@@ -69,10 +66,6 @@ export default function Timetable({
           </React.Fragment>
         ))}
       </div>
-    </div>
-  ) : (
-    <div className="timetable-loading" style={{ background: bgStyle }}>
-      <PulseLoader size={'20px'} color={'#fafafa'} />
     </div>
   );
 }

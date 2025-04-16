@@ -14,7 +14,7 @@ function getDayFraction(date: Date) {
   );
 }
 
-export default function Clock() {
+export default function Clock({ displayDay }: { displayDay?: boolean }) {
   const [time, setTime] = useState(new Date());
   const [gradient, setGradient] = useState({ background: '' });
 
@@ -54,7 +54,7 @@ export default function Clock() {
         <FontAwesomeIcon icon={faCalendarDays} />
         <p>
           {time.toLocaleDateString('pl-PL', {
-            weekday: 'long',
+            weekday: displayDay ? 'long' : undefined,
             year: 'numeric',
             month: 'long',
             day: 'numeric',
