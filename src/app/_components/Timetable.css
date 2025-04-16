@@ -1,6 +1,4 @@
-.loading {
-  width: 100%;
-  height: 100%;
+.timetable-loading {
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -8,7 +6,7 @@
 }
 
 .timetable,
-.loading {
+.timetable-loading {
   backdrop-filter: blur(5px);
 }
 
@@ -16,18 +14,16 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: hidden;
 }
 
 .timetable > .list {
-  overflow-y: hidden;
-  flex-grow: 1;
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
-.list > .entry ol > li {
-  margin-left: 1.25rem;
-  margin-top: 0.5rem;
-}
-
-.list > .entry ol > li > p {
-  margin-left: 0.5rem;
+.timetable > .list > .entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

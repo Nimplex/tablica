@@ -3,6 +3,7 @@
 import { PulseLoader } from 'react-spinners';
 
 import './Timetable.css';
+import React from 'react';
 
 export interface TimetableEntry {
   date: Date;
@@ -31,7 +32,7 @@ export default function Timetable({
 
       <div className="list">
         {data.entries.map((entry, i) => (
-          <>
+          <React.Fragment key={`entry-wrapper-${i}`}>
             {i !== 0 && (
               <span
                 className="divider"
@@ -39,7 +40,7 @@ export default function Timetable({
                 key={`divider-${i}`}
               ></span>
             )}
-            <div className="entry" key={`entry-${i}`}>
+            <div className="entry">
               <p>
                 <u>
                   {entry.date.toLocaleDateString('pl-PL', {
@@ -58,19 +59,19 @@ export default function Timetable({
                 :
               </p>
               <ol>
-                {entry.changes.map((change, i) => (
-                  <li key={i}>
+                {entry.changes.map((change, j) => (
+                  <li key={`change-${i}-${j}`}>
                     <p>{change}</p>
                   </li>
                 ))}
               </ol>
             </div>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
   ) : (
-    <div className="loading" style={{ background: bgStyle }}>
+    <div className="timetable-loading" style={{ background: bgStyle }}>
       <PulseLoader size={'20px'} color={'#fafafa'} />
     </div>
   );

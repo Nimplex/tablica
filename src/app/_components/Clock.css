@@ -11,8 +11,12 @@
 }
 
 .clock h1 {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 600;
+}
+
+.clock p {
+  font-size: 1.25rem;
 }
 
 .clock p::first-letter {
