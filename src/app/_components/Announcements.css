@@ -1,13 +1,25 @@
+.announcements-loading {
+  display: flex;
+  justify-content: center;
+  place-items: center;
+}
+
+.announcements,
+.announcements-loading {
+  backdrop-filter: blur(5px);
+}
+
 .announcements {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
   background: #0f0f0fee;
 }
 
-.announcements > div {
+.announcements > .list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  overflow-y: auto;
 }
