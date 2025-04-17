@@ -15,7 +15,7 @@ export class BoardConfig {
       'UPDATE board_config SET show_weekday_in_clock = ?, weather_api_key = ?, weather_city = ?, layout_json = ?, first_setup = ? WHERE id = 1',
     );
     stmt.run(
-      Number(this.firstSetup),
+      Number(this.showWeekdayInClock),
       this.weatherApiKey,
       this.weatherCity,
       JSON.stringify(this.layout),
