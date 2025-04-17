@@ -1,3 +1,4 @@
+import { ensureInitialized } from '@/lib/bootstrap';
 import { BoardConfig } from '@/lib/models/BoardConfig';
 import { NextResponse } from 'next/server';
 
@@ -5,15 +6,11 @@ const lang = 'pl';
 const units = 'metric';
 
 export async function GET() {
-  let config;
+  ensureInitialized();
 
-  try {
-    config = BoardConfig.get();
-  } catch {
-    return NextResponse.json({ error: 'Cannot load config' }, { status: 500 });
-  }
+  const boardConfig = BoardConfig.get();
 
-  const { weatherApiKey, weatherCity } = config;
+  const { weatherApiKey, weatherCity } = boardConfig;
 
   if (weatherApiKey == '' || weatherCity == '')
     return NextResponse.json(

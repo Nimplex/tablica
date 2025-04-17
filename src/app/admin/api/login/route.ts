@@ -10,14 +10,6 @@ export interface LoginRequestBody {
 }
 
 export async function POST(req: NextRequest) {
-  const token = req.cookies.get('token')?.value;
-
-  if (token)
-    return NextResponse.json(
-      { errors: ['Already logged in'] },
-      { status: 409 },
-    );
-
   const { data: json, error: parseError } =
     await safeParseJSON<LoginRequestBody>(req);
 

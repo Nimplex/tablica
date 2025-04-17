@@ -5,17 +5,12 @@ import Clock from './_components/Clock';
 import Weather from './_components/Weather';
 
 import { BoardConfig } from '@/lib/models/BoardConfig';
-import { initializeDatabase } from '@/lib/db';
+import { ensureInitialized } from '@/lib/bootstrap';
 
 export default async function App() {
-  let boardConfig;
+  ensureInitialized();
 
-  try {
-    boardConfig = BoardConfig.get();
-  } catch {
-    await initializeDatabase();
-    boardConfig = BoardConfig.get();
-  }
+  const boardConfig = BoardConfig.get();
 
   const layout = boardConfig.layout.columns.map((column, i) => (
     <Card key={i}>

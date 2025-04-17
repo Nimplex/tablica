@@ -11,7 +11,6 @@ import { User } from './models/User';
 const database = new Database(join(process.cwd(), 'data.db'));
 
 export async function initializeDatabase() {
-  // create all
   database.exec(`
     PRAGMA foreign_keys = ON;
 
@@ -111,7 +110,6 @@ export async function initializeDatabase() {
     ],
   };
 
-  // initialize board_config
   database
     .prepare(
       `

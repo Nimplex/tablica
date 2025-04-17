@@ -15,11 +15,11 @@ export class BoardConfig {
       'UPDATE board_config SET show_weekday_in_clock = ?, weather_api_key = ?, weather_city = ?, layout_json = ?, first_setup = ? WHERE id = 1',
     );
     stmt.run(
-      this.showWeekdayInClock,
+      Number(this.firstSetup),
       this.weatherApiKey,
       this.weatherCity,
-      this.layout,
-      this.firstSetup,
+      JSON.stringify(this.layout),
+      Number(this.firstSetup),
     );
   }
 

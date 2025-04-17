@@ -3,37 +3,30 @@ import { redirect } from 'next/navigation';
 import { verify } from '@/lib/auth/token';
 import { User } from '@/lib/models/User';
 import { BoardConfig } from '@/lib/models/BoardConfig';
-import { initializeDatabase } from '@/lib/db';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil';
 import { faTable } from '@fortawesome/free-solid-svg-icons/faTable';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { ensureInitialized } from '@/lib/bootstrap';
+
+import FirstSetupForm from './FirstSetupForm';
 
 import './panel.css';
 
 export default async function Panel() {
+  ensureInitialized();
+
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   const payload = verify(token);
 
-  if (!payload || !payload.id) {
-    return redirect('/admin/login');
-  }
+  if (!payload || !payload.id) return redirect('/admin/login');
 
   const user = User.getById(payload.id);
 
-  if (!user) {
-    return redirect('/admin/login');
-  }
+  if (!user) return redirect('/admin/login');
 
-  let boardConfig: BoardConfig;
-
-  try {
-    boardConfig = BoardConfig.get();
-  } catch {
-    await initializeDatabase();
-    boardConfig = BoardConfig.get();
-  }
+  const boardConfig = BoardConfig.get();
 
   return (
     <main className="dashboard-wrapper">
@@ -42,11 +35,17 @@ export default async function Panel() {
         <p>
           Zalogowany jako: <b>{user.name}</b>
         </p>
+        <span className="divider"></span>
         {boardConfig.firstSetup && (
-          <div>
-            <h1>Tablica nie została skonfigurowana</h1>
-            <button>Przeprowadź wstępną konfiguracje</button>
-          </div>
+          <>
+            <div className="first-setup-announcement">
+              <h2>Tablica nie została skonfigurowana</h2>
+              <FirstSetupForm
+                currentLayout={JSON.stringify(boardConfig.layout)}
+              />
+            </div>
+            <span className="divider"></span>
+          </>
         )}
         <div className="buttons">
           <div className="card">

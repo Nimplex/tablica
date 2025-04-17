@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
   boardConfig.showWeekdayInClock = json.show_weekday_in_clock;
   boardConfig.weatherApiKey = json.weather_api_key;
-  boardConfig.weatherApiKey = json.weather_city;
+  boardConfig.weatherCity = json.weather_city;
   boardConfig.layout = JSON.parse(json.layout_json);
   boardConfig.firstSetup = false;
 
