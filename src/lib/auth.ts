@@ -5,7 +5,7 @@ if (!JWT_SECRET) throw new Error('Brakuje JWT_SECRET w .env');
 
 export interface AuthTokenPayload {
   id: number;
-  email: string;
+  username: string;
 }
 
 export function signToken(payload: AuthTokenPayload): string {
