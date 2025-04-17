@@ -1,4 +1,4 @@
-import { BoardConfigRow, SiteLayout } from '@/types/BoardConfig';
+import type { BoardConfigRow, SiteLayout } from '@/types/BoardConfig';
 import { getOne } from '../db';
 
 export class BoardConfig {

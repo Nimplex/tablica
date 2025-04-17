@@ -1,4 +1,4 @@
-import { TextPanelRow } from '@/types/TextPanel';
+import type { TextPanelRow } from '@/types/TextPanel';
 import { getAll, getDatabase, getOne } from '../db';
 
 export class TextPanel {

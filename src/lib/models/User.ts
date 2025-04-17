@@ -1,6 +1,6 @@
-import { getDatabase, getOne } from '@/lib/db';
-import { UserRow } from '@/types/User';
 import bcrypt from 'bcrypt';
+import type { UserRow } from '@/types/User';
+import { getDatabase, getOne } from '../db';
 
 export class User {
   constructor(

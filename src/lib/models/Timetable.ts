@@ -3,8 +3,8 @@ import type {
   TimetableEntryRow,
   TimetableRow,
 } from '@/types/Timetable';
+import type { Color } from '@/app/_utils/interpolateColor';
 import { getAll, getDatabase, getOne } from '../db';
-import { Color } from '@/app/_utils/interpolateColor';
 
 export class Timetable {
   public entries: TimetableEntry[] = [];
