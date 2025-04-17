@@ -47,5 +47,9 @@ export default async function App() {
     </Card>
   ));
 
-  return <div className="standard-grid">{layout}</div>;
+  return (
+    <main id="main-app">
+      <div className="standard-grid">{layout}</div>
+    </main>
+  );
 }
