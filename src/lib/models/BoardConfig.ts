@@ -1,5 +1,5 @@
 import type { BoardConfigRow, SiteLayout } from '@/types/BoardConfig';
-import { getOne } from '../db';
+import { getDatabase, getOne } from '../db';
 
 export class BoardConfig {
   constructor(
@@ -7,8 +7,21 @@ export class BoardConfig {
     public weatherApiKey: string,
     public weatherCity: string,
     public layout: SiteLayout,
-    public firstConfig: boolean = true,
+    public firstSetup: boolean = true,
   ) {}
+
+  update(): void {
+    const stmt = getDatabase().prepare(
+      'UPDATE board_config SET show_weekday_in_clock = ?, weather_api_key = ?, weather_city = ?, layout_json = ?, first_setup = ? WHERE id = 1',
+    );
+    stmt.run(
+      this.showWeekdayInClock,
+      this.weatherApiKey,
+      this.weatherCity,
+      this.layout,
+      this.firstSetup,
+    );
+  }
 
   static get(): BoardConfig {
     const row = getOne<BoardConfigRow>(

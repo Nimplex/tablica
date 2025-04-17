@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import Card from './_components/Card';
 import TimetableComponent from './_components/Timetable';
 import TextPanel from './_components/TextPanel';
@@ -14,7 +12,7 @@ export default async function App() {
 
   try {
     boardConfig = BoardConfig.get();
-  } catch (err) {
+  } catch {
     await initializeDatabase();
     boardConfig = BoardConfig.get();
   }

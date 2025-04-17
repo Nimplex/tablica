@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { blacklistToken } from '@/lib/db';
-import { verifyToken } from '@/lib/auth';
+import { verify } from '@/lib/auth/token';
 
 export async function POST() {
   const cookieStore = await cookies();
@@ -17,7 +17,7 @@ export async function POST() {
     return res;
   }
 
-  const payload = verifyToken(token);
+  const payload = verify(token);
 
   if (!payload || !payload.id || !payload.username) {
     const res = NextResponse.json({ message: 'Logged out (invalid user)' });

@@ -8,13 +8,13 @@ export interface AuthTokenPayload {
   username: string;
 }
 
-export function signToken(payload: AuthTokenPayload): string {
+export function sign(payload: AuthTokenPayload): string {
   return jwt.sign(payload, JWT_SECRET as string, {
     expiresIn: '1d',
   });
 }
 
-export function verifyToken(token?: string): AuthTokenPayload | null {
+export function verify(token?: string): AuthTokenPayload | null {
   if (!token) return null;
   try {
     return jwt.verify(token, JWT_SECRET as string) as AuthTokenPayload;

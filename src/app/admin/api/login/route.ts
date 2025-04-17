@@ -1,22 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { User } from '@/lib/models/User';
-import { signToken } from '@/lib/auth';
+import { sign } from '@/lib/auth/token';
+import { safeParseJSON } from '@/lib/safeParse';
+import loginValidator from './validator';
+
+export interface LoginRequestBody {
+  username: string;
+  password: string;
+}
 
 export async function POST(req: NextRequest) {
-  const { username, password } = await req.json();
+  const token = req.cookies.get('token')?.value;
 
-  if (!username || !password)
-    return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+  if (token)
+    return NextResponse.json(
+      { errors: ['Already logged in'] },
+      { status: 409 },
+    );
 
-  const user = User.getByUsername(username);
+  const { data: json, error: parseError } =
+    await safeParseJSON<LoginRequestBody>(req);
 
-  if (!user || !(await user.comparePassword(password)))
+  if (parseError || !json) {
+    return NextResponse.json({ errors: [parseError] }, { status: 400 });
+  }
+
+  const errors = loginValidator.validate(json as LoginRequestBody);
+  if (errors.length > 0) {
+    return NextResponse.json({ errors }, { status: 400 });
+  }
+
+  const user = User.getByUsername(json.username);
+
+  if (!user || !(await user.comparePassword(json.password))) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+  }
 
-  const token = signToken({ id: user.id as number, username: user.name });
+  const newToken = sign({ id: user.id as number, username: user.name });
 
   const res = NextResponse.json({ message: 'Logged in' });
-  res.cookies.set('token', token, {
+  res.cookies.set('token', newToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     path: '/',
