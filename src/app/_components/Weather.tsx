@@ -9,9 +9,6 @@ import { PulseLoader } from 'react-spinners';
 
 import './Weather.css';
 
-const lang = 'pl';
-const units = 'metric';
-
 const sun = (
   <path
     d="M-0.492691 72.0625C-31.5936 72.0625 -56.9329 97.4006 -56.9329 128.5C-56.9329 159.599 -31.5936 184.938 -0.492691 184.938C30.6082 184.938 55.9476 159.599 55.9476 128.5C55.9476 97.4006 30.6082 72.0625 -0.492691 72.0625ZM144.371 119.388L88.6947 91.5805L108.39 32.5563C111.036 24.5609 103.451 16.9771 95.5145 19.6814L36.4874 39.3758L8.62006 -16.3562C4.85738 -23.8812 -5.84276 -23.8812 -9.60544 -16.3562L-37.414 39.317L-96.4999 19.6227C-104.496 16.9771 -112.08 24.5609 -109.375 32.4975L-89.68 91.5217L-145.356 119.388C-152.881 123.15 -152.881 133.85 -145.356 137.612L-89.68 165.42L-109.375 224.503C-112.021 232.498 -104.437 240.082 -96.4999 237.377L-37.4728 217.683L-9.66423 273.356C-5.90155 280.881 4.79858 280.881 8.56126 273.356L36.3698 217.683L95.3969 237.377C103.393 240.023 110.977 232.439 108.272 224.503L88.5771 165.478L144.253 137.671C151.896 133.85 151.896 123.15 144.371 119.388ZM52.714 181.704C23.3768 211.04 -24.3622 211.04 -53.6994 181.704C-83.0365 152.368 -83.0365 104.632 -53.6994 75.2959C-24.3622 45.9602 23.3768 45.9602 52.714 75.2959C82.0512 104.632 82.0512 152.368 52.714 181.704Z"
@@ -25,13 +22,7 @@ const cloud = (
   />
 );
 
-export default function Weather({
-  apiKey,
-  city,
-}: {
-  apiKey: string;
-  city: string;
-}) {
+export default function Weather() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [gradient, setGradient] = useState({ background: '#0f0f0f' });
@@ -41,43 +32,30 @@ export default function Weather({
   const [icon, setIcon] = useState(sun);
 
   const fetchData = async () => {
-    const res = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=${lang}&units=${units}`,
-    );
+    const res = await fetch('/api/weather');
 
     if (!res.ok) {
       setLoading(false);
       return setError('Wystąpił błąd w trakcie ładowania pogody');
-    } else {
-      setLoading(true);
-      setError(null);
     }
 
     const json = await res.json();
 
-    setDescription(json.weather[0].description.split(' ')[0]);
-    setTemp(Math.round(json.main.temp));
-    setWind(Math.round(json.wind.speed));
+    setDescription(json.description.split(' ')[0]);
+    setTemp(json.temp);
+    setWind(json.wind);
 
-    switch (json.weather[0].main) {
+    switch (json.main) {
       case 'Clouds':
         setIcon(cloud);
         setGradient({
-          background: `linear-gradient(
-            0deg,
-            rgb(93, 93, 93) 0%,
-            rgba(15, 15, 15, 1) 90%
-          )`,
+          background: `linear-gradient(0deg, rgb(93, 93, 93) 0%, rgba(15, 15, 15, 1) 90%)`,
         });
         break;
       case 'Clear':
         setIcon(sun);
         setGradient({
-          background: `linear-gradient(
-            0deg,
-            #ca9204 0%,
-            rgba(15, 15, 15, 1) 90%
-          )`,
+          background: `linear-gradient(0deg, #ca9204 0%, rgba(15, 15, 15, 1) 90%)`,
         });
         break;
     }

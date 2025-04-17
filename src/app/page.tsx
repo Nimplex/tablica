@@ -35,13 +35,7 @@ export default async function App() {
           case 'timetable':
             return <TimetableComponent id={element.id} key={`${i}-${j}`} />;
           case 'weather':
-            return (
-              <Weather
-                apiKey={boardConfig.weatherApiKey}
-                city={boardConfig.weatherCity}
-                key={`${i}-${j}`}
-              />
-            );
+            return <Weather key={`${i}-${j}`} />;
         }
       })}
     </Card>
