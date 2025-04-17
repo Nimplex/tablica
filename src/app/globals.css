@@ -31,7 +31,7 @@ p {
 }
 
 .standard-grid {
-  backdrop-filter: blur(1px) brightness(50%);
+  backdrop-filter: blur(1px) brightness(85%);
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
