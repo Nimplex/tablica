@@ -54,7 +54,6 @@ const schema = new ValidationSchema<ConfigRequestBody>([
   },
   { name: 'weather_city', fn: value => typeof value.weather_city === 'string' },
   { name: 'layout_json', fn: value => isValidLayoutJson(value.layout_json) },
-  { name: 'first_setup', fn: value => typeof value.first_setup === 'boolean' },
 ]);
 
 export default schema;

@@ -10,7 +10,6 @@ export interface ConfigRequestBody {
   weather_api_key: string;
   weather_city: string;
   layout_json: string;
-  first_setup: boolean;
 }
 
 export async function POST(req: NextRequest) {
@@ -42,7 +41,7 @@ export async function POST(req: NextRequest) {
   boardConfig.weatherApiKey = json.weather_api_key;
   boardConfig.weatherApiKey = json.weather_city;
   boardConfig.layout = JSON.parse(json.layout_json);
-  boardConfig.firstSetup = json.first_setup;
+  boardConfig.firstSetup = false;
 
   boardConfig.update();
 
