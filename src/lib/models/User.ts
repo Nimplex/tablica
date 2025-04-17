@@ -10,7 +10,7 @@ export class User {
   ) {}
 
   static fromRow(row: UserRow): User {
-    return new User(row.id, row.name, row.passwordHash);
+    return new User(row.id, row.name, row.password_hash);
   }
 
   async comparePassword(password: string): Promise<boolean> {
@@ -23,7 +23,7 @@ export class User {
 
     if (this.id !== null) {
       const stmt = getDatabase().prepare(
-        'UPDATE users SET passwordHash = ? WHERE id = ?',
+        'UPDATE users SET password_hash = ? WHERE id = ?',
       );
       stmt.run(hash, this.id);
     }
@@ -31,7 +31,7 @@ export class User {
 
   insert(): void {
     const stmt = getDatabase().prepare(
-      'INSERT INTO users (name, passwordHash) VALUES (?, ?)',
+      'INSERT INTO users (name, password_hash) VALUES (?, ?)',
     );
     const result = stmt.run(this.name, this.passwordHash);
     this.id = result.lastInsertRowid as number;

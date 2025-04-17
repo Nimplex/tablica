@@ -7,6 +7,7 @@ export class BoardConfig {
     public weatherApiKey: string,
     public weatherCity: string,
     public layout: SiteLayout,
+    public firstConfig: boolean = true,
   ) {}
 
   static get(): BoardConfig {
@@ -20,6 +21,7 @@ export class BoardConfig {
       row.weather_api_key,
       row.weather_city,
       JSON.parse(row.layout_json),
+      Boolean(row.first_setup),
     );
   }
 }

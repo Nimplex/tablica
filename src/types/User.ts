@@ -1,5 +1,5 @@
 export interface UserRow {
   id: number;
   name: string;
-  passwordHash: string;
+  password_hash: string;
 }

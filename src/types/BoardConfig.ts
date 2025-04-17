@@ -14,4 +14,5 @@ export interface BoardConfigRow {
   weather_api_key: string;
   weather_city: string;
   layout_json: string;
+  first_setup: boolean;
 }

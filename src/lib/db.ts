@@ -18,7 +18,8 @@ export async function initializeDatabase() {
     CREATE TABLE IF NOT EXISTS timetables (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL DEFAULT '',
-      color TEXT NOT NULL DEFAULT 'rgb(15, 15, 15)'
+      color TEXT NOT NULL DEFAULT 'rgb(15, 15, 15)',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
     CREATE TABLE IF NOT EXISTS timetable_entries (
@@ -26,6 +27,7 @@ export async function initializeDatabase() {
       timetable_id INTEGER NOT NULL,
       date TEXT NOT NULL,
       absent_teacher TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (timetable_id) REFERENCES timetables(id) ON DELETE CASCADE
     );
 
@@ -33,13 +35,15 @@ export async function initializeDatabase() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       entry_id INTEGER NOT NULL,
       change TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (entry_id) REFERENCES timetable_entries(id) ON DELETE CASCADE
     );
 
     CREATE TABLE IF NOT EXISTS text_panels (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       title TEXT NOT NULL,
-      content TEXT NOT NULL
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
     CREATE TABLE IF NOT EXISTS board_config (
@@ -47,14 +51,22 @@ export async function initializeDatabase() {
       show_weekday_in_clock INTEGER NOT NULL DEFAULT 0,
       weather_api_key TEXT NOT NULL DEFAULT '',
       weather_city TEXT NOT NULL DEFAULT '',
-      layout_json TEXT NOT NULL DEFAULT '[]'
+      layout_json TEXT NOT NULL DEFAULT '[]',
+      first_setup INTEGER NOT NULL DEFAULT 1,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE blacklisted_tokens (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      token TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT UNIQUE NOT NULL,
-      passwordHash TEXT NOT NULL,
-      createdAt TEXT DEFAULT CURRENT_TIMESTAMP
+      password_hash TEXT NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
 
@@ -105,14 +117,20 @@ export async function initializeDatabase() {
       `
       INSERT INTO board_config (
         id,
-        show_weekday_in_clock,
         weather_api_key,
         weather_city,
         layout_json
-      ) VALUES (1, 0, '', '', ?)
+      ) VALUES (1, '', '', ?)
     `,
     )
     .run(JSON.stringify(defaultLayout));
+}
+
+export function blacklistToken(token: string): void {
+  const stmt = getDatabase().prepare(
+    'INSERT INTO blacklisted_tokens (token) VALUES (?)',
+  );
+  stmt.run(token);
 }
 
 export function getDatabase() {
