@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { initializeDatabase } from '@/lib/db';
 import { BoardConfig } from '@/lib/models/BoardConfig';
 import { requireAuth } from '@/lib/auth/requireAuth';
 import { safeParseJSON } from '@/lib/safeParse';
 import configValidator from './validator';
+import { ensureInitialized } from '@/lib/bootstrap';
 
 export interface ConfigRequestBody {
   show_weekday_in_clock: boolean;
@@ -13,6 +13,8 @@ export interface ConfigRequestBody {
 }
 
 export async function POST(req: NextRequest) {
+  await ensureInitialized();
+
   if (!(await requireAuth(req)))
     return NextResponse.json({ errors: ['Invalid token'] }, { status: 401 });
 
@@ -28,14 +30,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ errors }, { status: 400 });
   }
 
-  let boardConfig: BoardConfig;
-
-  try {
-    boardConfig = BoardConfig.get();
-  } catch {
-    await initializeDatabase();
-    boardConfig = BoardConfig.get();
-  }
+  const boardConfig = BoardConfig.get();
 
   boardConfig.showWeekdayInClock = json.show_weekday_in_clock;
   boardConfig.weatherApiKey = json.weather_api_key;

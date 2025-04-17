@@ -6,7 +6,7 @@ const lang = 'pl';
 const units = 'metric';
 
 export async function GET() {
-  ensureInitialized();
+  await ensureInitialized();
 
   const boardConfig = BoardConfig.get();
 

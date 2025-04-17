@@ -14,7 +14,7 @@ import FirstSetupForm from './FirstSetupForm';
 import './panel.css';
 
 export default async function Panel() {
-  ensureInitialized();
+  await ensureInitialized();
 
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;

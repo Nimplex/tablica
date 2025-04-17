@@ -55,7 +55,7 @@ export async function initializeDatabase() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-    CREATE TABLE blacklisted_tokens (
+    CREATE TABLE IF NOT EXISTS blacklisted_tokens (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       token TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

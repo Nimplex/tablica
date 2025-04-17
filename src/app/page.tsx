@@ -8,7 +8,7 @@ import { BoardConfig } from '@/lib/models/BoardConfig';
 import { ensureInitialized } from '@/lib/bootstrap';
 
 export default async function App() {
-  ensureInitialized();
+  await ensureInitialized();
 
   const boardConfig = BoardConfig.get();
 

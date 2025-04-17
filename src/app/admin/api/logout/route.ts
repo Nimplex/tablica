@@ -2,8 +2,11 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { blacklistToken } from '@/lib/db';
 import { verify } from '@/lib/auth/token';
+import { ensureInitialized } from '@/lib/bootstrap';
 
 export async function POST() {
+  await ensureInitialized();
+
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
 
