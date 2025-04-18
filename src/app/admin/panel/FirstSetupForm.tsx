@@ -38,9 +38,7 @@ export default function FirstSetupForm({
     if (!response.ok) {
       const json = await response.json();
       setErrors(json.errors);
-    } else {
-      return window.location.reload();
-    }
+    } else return window.location.reload();
 
     setSubmitting(false);
   }
