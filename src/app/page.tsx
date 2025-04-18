@@ -7,6 +7,8 @@ import Weather from './_components/Weather';
 import { BoardConfig } from '@/lib/models/BoardConfig';
 import { ensureInitialized } from '@/lib/bootstrap';
 
+export const dynamic = 'force-dynamic';
+
 export default async function App() {
   await ensureInitialized();
 
