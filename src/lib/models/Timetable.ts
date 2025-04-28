@@ -3,7 +3,7 @@ import type {
   TimetableEntryRow,
   TimetableRow,
 } from '@/types/Timetable';
-import type { Color } from '@/app/_utils/interpolateColor';
+import type { Color } from '@/lib/interpolateColor';
 import { getAll, getDatabase, getOne } from '../db';
 
 export class Timetable {

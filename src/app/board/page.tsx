@@ -7,6 +7,8 @@ import Weather from './_components/Weather';
 import { BoardConfig } from '@/lib/models/BoardConfig';
 import { ensureInitialized } from '@/lib/bootstrap';
 
+import './board.css';
+
 export const dynamic = 'force-dynamic';
 
 export default async function App() {
@@ -36,9 +38,5 @@ export default async function App() {
     </Card>
   ));
 
-  return (
-    <main id="main-app">
-      <div className="standard-grid">{layout}</div>
-    </main>
-  );
+  return <div className="standard-grid">{layout}</div>;
 }

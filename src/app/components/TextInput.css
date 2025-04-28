@@ -1,0 +1,39 @@
+.text-input {
+  padding: 0.625rem 1rem;
+  font-size: 1rem;
+  font-weight: normal;
+  border-radius: var(--round);
+  outline: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-dark-gray);
+  color: var(--color-white);
+  background: none;
+  transition: all 0.3s;
+  cursor: text;
+}
+
+.light-mode .text-input {
+  background: var(--color-white);
+  color: var(--color-background);
+}
+
+.input-main:focus {
+  border-color: var(--color-main);
+}
+
+.input-red:focus {
+  border-color: var(--color-red-4);
+}
+
+.input-green:focus {
+  border-color: var(--color-green-2);
+}
+
+.input-blue:focus {
+  border-color: var(--color-blue-3);
+}
+
+.input-gray:focus {
+  border-color: var(--color-gray);
+}

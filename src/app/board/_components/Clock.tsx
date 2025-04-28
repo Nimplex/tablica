@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { multiInterpolateColor } from '../_utils/interpolateColor';
+import { multiInterpolateColor } from '@/lib/interpolateColor';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays } from '@fortawesome/free-solid-svg-icons/faCalendarDays';
 

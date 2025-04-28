@@ -1,4 +1,4 @@
-import { Color } from '@/app/_utils/interpolateColor';
+import { Color } from '@/lib/interpolateColor';
 
 export interface TimetableRow {
   id: number;

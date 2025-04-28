@@ -1,6 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Button from '@/app/components/Button';
+import Form from '@/app/components/Form';
+import Row from '@/app/components/Row';
+
+import './FirstSetupForm.css';
+import TextInput from '@/app/components/TextInput';
+import Column from '@/app/components/Column';
 
 export default function FirstSetupForm({
   currentLayout,
@@ -45,26 +52,23 @@ export default function FirstSetupForm({
 
   if (!open)
     return (
-      <button onClick={() => setOpen(true)}>
-        Przeprowadź wstępną konfigurację
-      </button>
+      <Row>
+        <Button onClick={() => setOpen(true)}>Rozpocznij</Button>
+      </Row>
     );
 
   return (
     <div className="first-setup-form-wrapper">
-      <form>
-        <div className="top-bar">
+      <Form>
+        <Row>
           <h1>Wstępna konfiguracja</h1>
-          <button
-            className="exit-button btn-gray"
-            onClick={() => setOpen(false)}
-          >
+          <Button className="btn-gray" onClick={() => setOpen(false)}>
             ✖
-          </button>
-        </div>
-        <div className="column">
+          </Button>
+        </Row>
+        <Column className="column">
           <label htmlFor="weather_api_key">Klucz API:</label>
-          <input
+          <TextInput
             type="text"
             id="weather_api_key"
             name="weather_api_key"
@@ -79,10 +83,10 @@ export default function FirstSetupForm({
               https://openweathermap.org/
             </a>
           </p>
-        </div>
-        <div className="column">
+        </Column>
+        <Column>
           <label htmlFor="weather_city">Miasto:</label>
-          <input
+          <TextInput
             type="text"
             id="weather_city"
             name="weather_city"
@@ -91,8 +95,8 @@ export default function FirstSetupForm({
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="column" style={{ alignItems: 'flex-start' }}>
+        </Column>
+        <Column style={{ alignItems: 'flex-start' }}>
           <label htmlFor="show_weekday_in_clock">
             Dzień tygodnia w zegarze:
           </label>
@@ -104,24 +108,24 @@ export default function FirstSetupForm({
             onChange={handleChange}
             required
           />
-        </div>
+        </Column>
         {errors && (
-          <div className="column">
+          <Column>
             {errors.map((error, i) => (
               <p style={{ color: '#dc3545' }} key={`error-${i}`}>
                 {error}
               </p>
             ))}
-          </div>
+          </Column>
         )}
-        <button
+        <Button
           className={submitting ? 'btn-gray' : 'btn-blue'}
           onClick={handleSubmit}
           disabled={submitting}
         >
           {submitting ? 'Zapisuję...' : 'Zapisz konfigurację'}
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 }
