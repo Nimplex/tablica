@@ -3,12 +3,9 @@ import { redirect } from 'next/navigation';
 import { verify } from '@/lib/auth/token';
 import { User } from '@/lib/models/User';
 import { BoardConfig } from '@/lib/models/BoardConfig';
-import { ensureInitialized } from '@/lib/bootstrap';
 import AdminPanelClient from './AdminPanelClient';
 
 export default async function AdminPanel() {
-  await ensureInitialized();
-
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   const payload = verify(token);

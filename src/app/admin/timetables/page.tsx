@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { verify } from '@/lib/auth/token';
 import { User } from '@/lib/models/User';
 import { Timetable } from '@/lib/models/Timetable';
-import { ensureInitialized } from '@/lib/bootstrap';
 import { CalendarPlus, IdCard, Pencil, User as UserIcon } from 'lucide-react';
 import {
   Card,
@@ -17,8 +16,6 @@ import Header from '../components/Header';
 import BackButton from '../components/BackButton';
 
 export default async function Timetables() {
-  await ensureInitialized();
-
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   const payload = verify(token);

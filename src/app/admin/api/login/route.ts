@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { User } from '@/lib/models/User';
 import { sign } from '@/lib/auth/token';
 import { safeParseJSON } from '@/lib/safeParse';
-import { ensureInitialized } from '@/lib/bootstrap';
 import loginValidator from './validator';
 
 export interface LoginRequestBody {
@@ -11,8 +10,6 @@ export interface LoginRequestBody {
 }
 
 export async function POST(req: NextRequest) {
-  await ensureInitialized();
-
   const { data: json, error: parseError } =
     await safeParseJSON<LoginRequestBody>(req);
 

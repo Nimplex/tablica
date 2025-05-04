@@ -5,15 +5,12 @@ import Clock from './_components/Clock';
 import Weather from './_components/Weather';
 
 import { BoardConfig } from '@/lib/models/BoardConfig';
-import { ensureInitialized } from '@/lib/bootstrap';
 
 import './board.css';
 
 export const dynamic = 'force-dynamic';
 
 export default async function App() {
-  await ensureInitialized();
-
   const boardConfig = BoardConfig.get();
 
   const layout = boardConfig.layout.columns.map((column, i) => (

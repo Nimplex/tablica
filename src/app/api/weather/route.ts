@@ -1,4 +1,3 @@
-import { ensureInitialized } from '@/lib/bootstrap';
 import { BoardConfig } from '@/lib/models/BoardConfig';
 import { NextResponse } from 'next/server';
 
@@ -6,8 +5,6 @@ const lang = 'pl';
 const units = 'metric';
 
 export async function GET() {
-  await ensureInitialized();
-
   const boardConfig = BoardConfig.get();
 
   const { weatherApiKey, weatherCity } = boardConfig;

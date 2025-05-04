@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Timetable, TimetableEntry } from '@/lib/models/Timetable';
 import { requireAuth } from '@/lib/auth/requireAuth';
 import { safeParseJSON } from '@/lib/safeParse';
-import { ensureInitialized } from '@/lib/bootstrap';
 import { Color } from '@/lib/interpolateColor';
 import timetableValidator from './validator';
 
@@ -21,8 +20,6 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  await ensureInitialized();
-
   const user = await requireAuth(req);
   if (!user)
     return NextResponse.json({ errors: ['Invalid token'] }, { status: 401 });

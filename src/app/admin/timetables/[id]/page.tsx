@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import { verify } from '@/lib/auth/token';
 import { User } from '@/lib/models/User';
 import { Timetable } from '@/lib/models/Timetable';
-import { ensureInitialized } from '@/lib/bootstrap';
 import EditTimetableClient from './EditTimetableClient';
 
 interface EditTimetableParams {
@@ -16,8 +15,6 @@ export default async function EditTimetable({ params }: EditTimetableParams) {
   const { id } = await params;
 
   if (isNaN(parseInt(id))) return redirect('/timetables');
-
-  await ensureInitialized();
 
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;

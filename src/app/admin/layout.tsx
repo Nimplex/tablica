@@ -1,8 +1,10 @@
 import { ThemeProvider } from './components/ThemeProvider';
+import { Inter } from 'next/font/google';
 
 import './admin.css';
 import { Toaster } from './components/ui/sonner';
-import { inter } from '../layout';
+
+const inter = Inter({ subsets: ['latin-ext'] });
 
 export default function Layout({
   children,

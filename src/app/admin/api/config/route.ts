@@ -3,7 +3,6 @@ import { BoardConfig } from '@/lib/models/BoardConfig';
 import { requireAuth } from '@/lib/auth/requireAuth';
 import { safeParseJSON } from '@/lib/safeParse';
 import configValidator from './validator';
-import { ensureInitialized } from '@/lib/bootstrap';
 
 export interface ConfigRequestBody {
   show_weekday_in_clock: boolean;
@@ -13,8 +12,6 @@ export interface ConfigRequestBody {
 }
 
 export async function POST(req: NextRequest) {
-  await ensureInitialized();
-
   if (!(await requireAuth(req)))
     return NextResponse.json({ errors: ['Invalid token'] }, { status: 401 });
 
