@@ -4,6 +4,9 @@ export interface TimetableRow {
   id: number;
   title: string;
   color: Color;
+  edited_by: string;
+  edited_at: string;
+  created_at: string;
 }
 
 export interface TimetableEntryRow {

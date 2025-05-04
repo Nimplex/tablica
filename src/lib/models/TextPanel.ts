@@ -6,10 +6,20 @@ export class TextPanel {
     public id: number | null,
     public title: string,
     public content: string,
+    public editedBy: string = 'system',
+    public editedAt: Date = new Date(),
+    public createdAt: Date = new Date(),
   ) {}
 
   static fromRow(row: TextPanelRow): TextPanel {
-    return new TextPanel(row.id, row.title, row.content);
+    return new TextPanel(
+      row.id,
+      row.title,
+      row.content,
+      row.edited_by,
+      new Date(row.edited_at),
+      new Date(row.created_at),
+    );
   }
 
   insert(): void {

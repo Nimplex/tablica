@@ -13,10 +13,63 @@ export class Timetable {
     public id: number | null,
     public title: string,
     public color: Color,
+    public editedBy: string = 'system',
+    public editedAt: Date = new Date(),
+    public createdAt: Date = new Date(),
   ) {}
 
   static fromRow(row: TimetableRow): Timetable {
-    return new Timetable(row.id, row.title, row.color);
+    return new Timetable(
+      row.id,
+      row.title,
+      row.color,
+      row.edited_by,
+      new Date(row.edited_at),
+      new Date(row.created_at),
+    );
+  }
+
+  update(): void {
+    const stmt = getDatabase().prepare(`
+      UPDATE timetables SET title = ?, color = ?, edited_by = ?, edited_at = ?
+      WHERE id = ?
+    `);
+    stmt.run(
+      this.title,
+      this.color,
+      this.editedBy,
+      this.editedAt.toISOString(),
+      this.id,
+    );
+
+    const currentEntryRows = getAll<{ id: number }>(
+      'SELECT id FROM timetable_entries WHERE timetable_id = ?',
+      [this.id],
+    );
+    const currentEntryIds = new Set(currentEntryRows.map(row => row.id));
+    const updatedEntryIds = new Set<number>();
+
+    this.entries.forEach(entry => {
+      if (entry.id !== null) {
+        entry.update();
+        updatedEntryIds.add(entry.id);
+      } else {
+        entry.timetableId = this.id!;
+        entry.insert();
+      }
+    });
+
+    currentEntryIds.forEach(entryId => {
+      if (!updatedEntryIds.has(entryId)) {
+        getDatabase()
+          .prepare('DELETE FROM entry_changes WHERE entry_id = ?')
+          .run(entryId);
+
+        getDatabase()
+          .prepare('DELETE FROM timetable_entries WHERE id = ?')
+          .run(entryId);
+      }
+    });
   }
 
   insert(): void {
@@ -34,7 +87,7 @@ export class Timetable {
 
   fetchEntries(): void {
     const rows = getAll<TimetableEntryRow>(
-      'SELECT id, date, absent_teacher FROM timetable_entries WHERE timetable_id = ?',
+      'SELECT * FROM timetable_entries WHERE timetable_id = ?',
       [this.id],
     );
 
@@ -91,12 +144,34 @@ export class TimetableEntry {
     );
   }
 
+  update(): void {
+    const stmt = getDatabase().prepare(`
+      UPDATE timetable_entries SET date = ?, absent_teacher = ?
+      WHERE id = ?
+    `);
+    stmt.run(this.date.toISOString(), this.absentTeacher, this.id);
+
+    getDatabase()
+      .prepare('DELETE FROM entry_changes WHERE entry_id = ?')
+      .run(this.id);
+
+    this.changes.forEach(change => {
+      getDatabase()
+        .prepare('INSERT INTO entry_changes (entry_id, change) VALUES (?, ?)')
+        .run(this.id, change);
+    });
+  }
+
   insert(): void {
     const stmt = getDatabase().prepare(`
       INSERT INTO timetable_entries (timetable_id, date, absent_teacher)
       VALUES (?, ?, ?)
     `);
-    const result = stmt.run(this.timetableId, this.date, this.timetableId);
+    const result = stmt.run(
+      this.timetableId,
+      this.date.toISOString(),
+      this.timetableId,
+    );
     this.id = result.lastInsertRowid as number;
 
     this.changes.forEach(change => {

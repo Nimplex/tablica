@@ -9,9 +9,9 @@ import {
   CardTitle,
 } from '../components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
-import { Button } from '../components/ui/button';
 import FirstSetupDialog from './FirstSetupDialog';
 import Link from 'next/link';
+import Header from '../components/Header';
 
 interface AdminPanelClientProps {
   userName: string;
@@ -26,17 +26,11 @@ export default function AdminPanelClient({
 }: AdminPanelClientProps) {
   return (
     <div className="container mx-auto p-6 flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold">Panel administratora</h1>
-          <p className="text-muted-foreground">
-            Zalogowany jako: <span className="font-medium">{userName}</span>
-          </p>
-        </div>
-        <Button variant="outline" size="icon">
-          <Bell />
-        </Button>
-      </div>
+      <Header title={'Panel administratora'}>
+        <p className="text-muted-foreground">
+          Zalogowany jako: <span className="font-medium">{userName}</span>
+        </p>
+      </Header>
 
       {firstSetup && (
         <Alert className="bg-blue-50 border-blue-200 text-blue-700 flex">

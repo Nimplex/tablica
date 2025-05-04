@@ -9,7 +9,6 @@ import AdminPanelClient from './AdminPanelClient';
 export default async function AdminPanel() {
   await ensureInitialized();
 
-  // Authentication check
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   const payload = verify(token);

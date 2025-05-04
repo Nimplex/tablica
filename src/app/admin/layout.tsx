@@ -1,5 +1,8 @@
+import { ThemeProvider } from './components/ThemeProvider';
+
 import './admin.css';
-import { ThemeProvider } from './components/themeProvider';
+import { Toaster } from './components/ui/sonner';
+import { inter } from '../layout';
 
 export default function Layout({
   children,
@@ -14,6 +17,7 @@ export default function Layout({
       disableTransitionOnChange
     >
       {children}
+      <Toaster toastOptions={{ className: inter.className }} />
     </ThemeProvider>
   );
 }

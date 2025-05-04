@@ -24,7 +24,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Checkbox } from '../components/ui/checkbox';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
-import { AlertTriangleIcon } from 'lucide-react';
+import { AlertTriangleIcon, Save } from 'lucide-react';
 
 const formSchema = z.object({
   weather_api_key: z.string().nonempty({ message: 'Klucz API jest wymagany' }),
@@ -170,7 +170,9 @@ export default function FirstSetupDialog({
               {submitting ? (
                 <div className="h-4 w-4 animate-spin rounded-full border-2 border-muted-foreground border-t-transparent" />
               ) : (
-                'Zapisz'
+                <>
+                  <Save className="h-4 w-4" /> Zapisz zmiany
+                </>
               )}
             </Button>
           </form>
