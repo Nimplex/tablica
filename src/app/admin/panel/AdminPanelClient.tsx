@@ -11,6 +11,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
 import { Button } from '../components/ui/button';
 import FirstSetupDialog from './FirstSetupDialog';
+import Link from 'next/link';
 
 interface AdminPanelClientProps {
   userName: string;
@@ -26,7 +27,7 @@ export default function AdminPanelClient({
   return (
     <div className="container mx-auto p-6 flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <div>
+        <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-bold">Panel administratora</h1>
           <p className="text-muted-foreground">
             Zalogowany jako: <span className="font-medium">{userName}</span>
@@ -58,53 +59,61 @@ export default function AdminPanelClient({
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="hover:border-primary transition-colors cursor-pointer">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-xl">Zastępstwa</CardTitle>
-            <Bell className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Zarządzaj zastępstwami dla klas i nauczycieli
-            </CardDescription>
-          </CardContent>
-        </Card>
+        <Link href="timetables">
+          <Card className="h-full hover:border-primary transition-colors cursor-pointer">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-xl">Zastępstwa</CardTitle>
+              <Bell className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                Zarządzaj zastępstwami dla klas i nauczycieli
+              </CardDescription>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="hover:border-primary transition-colors cursor-pointer">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-xl">Pola tekstowe</CardTitle>
-            <FileText className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Edytuj treści wyświetlane na tablicy
-            </CardDescription>
-          </CardContent>
-        </Card>
+        <Link href="text_fields">
+          <Card className="h-full hover:border-primary transition-colors cursor-pointer">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-xl">Pola tekstowe</CardTitle>
+              <FileText className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                Edytuj treści wyświetlane na tablicy
+              </CardDescription>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="hover:border-primary transition-colors cursor-pointer">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-xl">Układ strony</CardTitle>
-            <Layers className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Dostosuj układ elementów na ekranie tablicy
-            </CardDescription>
-          </CardContent>
-        </Card>
+        <Link href="layout_editor">
+          <Card className="h-full hover:border-primary transition-colors cursor-pointer">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-xl">Układ strony</CardTitle>
+              <Layers className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                Dostosuj układ elementów na ekranie tablicy
+              </CardDescription>
+            </CardContent>
+          </Card>
+        </Link>
 
-        <Card className="hover:border-primary transition-colors cursor-pointer">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-xl">Ustawienia</CardTitle>
-            <Settings className="h-5 w-5 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Konfiguruj parametry systemu i konta użytkowników
-            </CardDescription>
-          </CardContent>
-        </Card>
+        <Link href="settings">
+          <Card className="h-full hover:border-primary transition-colors cursor-pointer">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+              <CardTitle className="text-xl">Ustawienia</CardTitle>
+              <Settings className="h-5 w-5 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <CardDescription>
+                Konfiguruj parametry systemu i konta użytkowników
+              </CardDescription>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
     </div>
   );
