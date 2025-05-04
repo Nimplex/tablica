@@ -5,12 +5,15 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/PH_SWI_08.jpg/1280px-PH_SWI_08.jpg);
   backdrop-filter: blur(1px) brightness(85%);
   background-repeat: round;
+  font-size: 16px;
+  color: #ebe9e9;
 }
 
 input,
